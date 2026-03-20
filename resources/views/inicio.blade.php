@@ -174,23 +174,44 @@
             max-width: 380px;
         }
 
-        /* Pill tag */
-        .pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            margin-top: 36px;
-            padding: 8px 20px;
-            border: 1px solid rgba(192,57,43,0.3);
-            border-radius: 999px;
-            font-size: 10px;
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            color: rgba(212,197,169,0.5);
+        /* Mensaje de prevención — hero */
+        .hero-manifesto {
+            margin-top: 32px;
+            max-width: 420px;
+            text-align: center;
+            padding: 22px 26px;
+            border-radius: 16px;
+            border: 1px solid rgba(192, 57, 43, 0.22);
+            background: linear-gradient(145deg, rgba(192, 57, 43, 0.08) 0%, rgba(13, 11, 8, 0.6) 100%);
+            border-left: 3px solid var(--crimson);
+        }
+        .hero-manifesto > strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.05rem, 2.5vw, 1.35rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.35;
+            margin-bottom: 10px;
+        }
+        .hero-manifesto > strong em {
+            font-style: italic;
+            color: var(--amber);
+        }
+        .hero-manifesto p {
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(212, 197, 169, 0.55);
+            letter-spacing: 0.04em;
+            line-height: 1.65;
+        }
+        .hero-manifesto .manifesto-em {
+            color: var(--bone);
+            font-weight: 600;
         }
         .hero-cta {
             display: inline-block;
-            margin-top: 18px;
+            margin-top: 22px;
             padding: 12px 18px;
             border-radius: 999px;
             border: 1px solid rgba(232, 160, 32, 0.4);
@@ -204,16 +225,6 @@
         .hero-cta:hover {
             background: rgba(232, 160, 32, 0.12);
             transform: translateY(-2px);
-        }
-        .pill-dot {
-            width: 6px; height: 6px;
-            border-radius: 50%;
-            background: var(--crimson);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse {
-            0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.7); }
-            50%      { box-shadow: 0 0 0 6px rgba(192,57,43,0); }
         }
 
         /* ── DIVIDER ── */
@@ -270,6 +281,39 @@
             color: var(--crimson);
             font-size: 13px;
             text-align: center;
+        }
+        .flash--success {
+            text-align: left;
+            padding: 22px 24px;
+            background: linear-gradient(145deg, rgba(232, 160, 32, 0.09) 0%, rgba(192, 57, 43, 0.07) 50%, rgba(13, 11, 8, 0.5) 100%);
+            border: 1px solid rgba(232, 160, 32, 0.28);
+            border-left: 3px solid var(--amber);
+            color: var(--bone);
+        }
+        .flash-title {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 10px;
+            letter-spacing: 0.02em;
+        }
+        .flash-body {
+            display: block;
+            font-size: 12px;
+            line-height: 1.75;
+            color: rgba(212, 197, 169, 0.72);
+            font-weight: 300;
+            letter-spacing: 0.03em;
+        }
+        .celebration-at-voces {
+            margin: 0 0 36px;
+            animation: celebration-in 0.75s ease-out;
+        }
+        @keyframes celebration-in {
+            from { opacity: 0; transform: translateY(14px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .validation-errors {
             margin-bottom: 20px;
@@ -602,47 +646,6 @@
             text-transform: uppercase;
             color: rgba(212,197,169,0.15);
         }
-
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            color: rgba(212,197,169,0.2);
-            font-size: 9px;
-            letter-spacing: 0.4em;
-            text-transform: uppercase;
-            animation: float 3s ease-in-out infinite;
-        }
-        .scroll-mouse {
-            width: 20px; height: 30px;
-            border: 1px solid rgba(212,197,169,0.15);
-            border-radius: 10px;
-            position: relative;
-        }
-        .scroll-mouse::before {
-            content: '';
-            position: absolute;
-            top: 5px; left: 50%;
-            transform: translateX(-50%);
-            width: 3px; height: 6px;
-            background: var(--crimson);
-            border-radius: 999px;
-            animation: scroll-dot 2s ease-in-out infinite;
-        }
-        @keyframes scroll-dot {
-            0%,100% { opacity: 1; transform: translate(-50%, 0); }
-            50%      { opacity: 0; transform: translate(-50%, 8px); }
-        }
-        @keyframes float {
-            0%,100% { transform: translateX(-50%) translateY(0); }
-            50%      { transform: translateX(-50%) translateY(-6px); }
-        }
     </style>
 </head>
 <body>
@@ -674,15 +677,15 @@
         <p class="hero-sub" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="250">
             Cada dosis tiene un costo invisible que la euforia no te deja ver hasta que es demasiado tarde.
         </p>
-        <div class="pill" data-aos="fade-up" data-aos-delay="400">
-            <span class="pill-dot"></span>
-            Exposición activa · Reflexión abierta
+        <div class="hero-manifesto" data-aos="fade-up" data-aos-delay="400">
+            <strong>No te drogues: <em>tu futuro no se negocia.</em></strong>
+            <p>
+                Decir <strong class="manifesto-em">no</strong> no te hace aburrido: te mantiene entero.
+                Si alguien insiste, no es tu amigo — es presión. Busca ayuda, habla con alguien de confianza y recuerda:
+                la primera vez puede parecer elección; la adicción, casi nunca.
+            </p>
         </div>
         <a href="#reflexion" class="hero-cta" data-aos="fade-up" data-aos-delay="500">Contesta un formulario</a>
-        <div class="scroll-indicator">
-            <div class="scroll-mouse"></div>
-            <span>Explorar</span>
-        </div>
     </section>
 
     <div class="divider"></div>
@@ -710,11 +713,6 @@
             <h2 class="section-title">¿Qué te <em>llevas</em>?</h2>
             <p class="section-desc">Comparte tu reflexión. Sin juicios, sin filtros — solo verdad.</p>
         </div>
-
-        <!-- Flash Laravel -->
-        @if (session('estado'))
-        <div class="flash">{{ session('estado') }}</div>
-        @endif
 
         @if ($errors->any())
         <div class="validation-errors" id="form-errors">
@@ -802,6 +800,13 @@
             <div class="testimonials-line"></div>
         </div>
 
+        @if (session('celebration_title'))
+        <div class="flash flash--success celebration-at-voces" id="celebration-flash-banner" role="status">
+            <span class="flash-title">{{ session('celebration_title') }}</span>
+            <span class="flash-body">{{ session('celebration_body') }}</span>
+        </div>
+        @endif
+
         <div class="testimonials-grid" id="testimonials-grid">
             @forelse ($comentarios as $comentario)
             <div class="testimonial-card" data-aos="fade-up">
@@ -825,12 +830,49 @@
         <span class="footer-copy">© 2026 Proyecto Académico de Concientización</span>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ once: true, easing: 'ease-out-quart', duration: 900 });
 
-        // Lleva al formulario al iniciar para hacerlo intuitivo.
+        /** Confetti sobrio: paleta del sitio, poca velocidad, respeto a reduced-motion */
+        function launchFormalConfetti() {
+            if (typeof confetti !== 'function') return;
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+            const palette = ['#c0392b', '#e8a020', '#d4c5a9', '#a67c52', '#f5ecd8', '#8b6914'];
+
+            const burst = (opts) => {
+                confetti(Object.assign({
+                    colors: palette,
+                    ticks: 400,
+                    gravity: 0.5,
+                    scalar: 0.7,
+                    drift: 0.1,
+                    particleCount: 40,
+                    spread: 56,
+                    startVelocity: 19,
+                    disableForReducedMotion: true,
+                    zIndex: 10050,
+                }, opts));
+            };
+
+            burst({ origin: { x: 0.5, y: 0.3 } });
+            window.setTimeout(() => {
+                burst({ particleCount: 24, angle: 125, spread: 42, origin: { x: 0.97, y: 0.48 } });
+                burst({ particleCount: 24, angle: 55, spread: 42, origin: { x: 0.03, y: 0.48 } });
+            }, 140);
+            window.setTimeout(() => {
+                burst({ particleCount: 30, spread: 68, origin: { x: 0.5, y: 0.24 }, scalar: 0.55, startVelocity: 15 });
+            }, 380);
+        }
+
+        // Tras envío clásico: confetti + ya estás en #voces. Sin celebración: bajar al formulario.
         window.addEventListener('load', () => {
+            @if(session('celebration_title'))
+            window.setTimeout(() => launchFormalConfetti(), 200);
+            return;
+            @endif
             const hasFragment = window.location.hash && window.location.hash.length > 1;
             if (!hasFragment) {
                 const formSection = document.getElementById('reflexion');
@@ -865,7 +907,12 @@
                         body: formData,
                     });
 
-                    const data = await response.json();
+                    let data;
+                    try {
+                        data = await response.json();
+                    } catch (e) {
+                        throw new Error('No se pudo enviar el formulario.');
+                    }
 
                     if (!response.ok) {
                         if (data.errors) {
@@ -898,20 +945,32 @@
                     card.querySelector('.testimonial-date').textContent = data.comentario.fecha;
                     testimonialsGrid.prepend(card);
 
-                    let flash = document.querySelector('.flash');
-                    if (!flash) {
-                        flash = document.createElement('div');
-                        flash.className = 'flash';
-                        comentarioForm.parentElement.insertBefore(flash, comentarioForm);
-                    }
-                    flash.textContent = data.message;
-
                     comentarioForm.reset();
 
                     const vocesSection = document.getElementById('voces');
-                    if (vocesSection) {
-                        vocesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    const gridEl = document.getElementById('testimonials-grid');
+                    if (data.celebration && gridEl && gridEl.parentNode) {
+                        let banner = document.getElementById('celebration-flash-banner');
+                        if (!banner) {
+                            banner = document.createElement('div');
+                            banner.id = 'celebration-flash-banner';
+                            banner.className = 'flash flash--success celebration-at-voces';
+                            banner.setAttribute('role', 'status');
+                            gridEl.parentNode.insertBefore(banner, gridEl);
+                        }
+                        banner.innerHTML =
+                            '<span class="flash-title"></span><span class="flash-body"></span>';
+                        banner.querySelector('.flash-title').textContent = data.celebration.title;
+                        banner.querySelector('.flash-body').textContent = data.celebration.body;
                     }
+
+                    launchFormalConfetti();
+
+                    window.setTimeout(() => {
+                        if (vocesSection) {
+                            vocesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    }, 500);
                 } catch (error) {
                     errorsBox.innerHTML = '<div>Ocurrio un error al enviar. Intenta nuevamente.</div>';
                 } finally {

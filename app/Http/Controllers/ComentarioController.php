@@ -35,9 +35,15 @@ class ComentarioController extends Controller
 
         $comentario = Comentario::create($data);
 
+        $celebrationTitle = 'Gracias por compartir tu reflexión';
+        $celebrationBody = 'Tu voz enriquece esta exposición. Recuerda: no te drogues — cuidar tu salud y tu futuro es un acto de dignidad. El placer fugaz no vale tus sueños ni a quienes te quieren; decir «no» también es fortaleza. Si necesitas apoyo, busca ayuda confiable: no estás solo.';
+
         if ($request->expectsJson()) {
             return response()->json([
-                'message' => 'Gracias por tu comentario sobre nuestra exposicion.',
+                'celebration' => [
+                    'title' => $celebrationTitle,
+                    'body' => $celebrationBody,
+                ],
                 'comentario' => [
                     'nombre' => $comentario->nombre,
                     'mensaje' => $comentario->mensaje,
@@ -46,7 +52,8 @@ class ComentarioController extends Controller
             ]);
         }
 
-        return redirect('/')
-            ->with('estado', 'Gracias por tu comentario sobre nuestra exposicion.');
+        return redirect('/#voces')
+            ->with('celebration_title', $celebrationTitle)
+            ->with('celebration_body', $celebrationBody);
     }
 }
