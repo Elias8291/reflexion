@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0d0b08">
     <title>El Precio del Placer</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Syne:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -21,6 +22,28 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html { scroll-behavior: smooth; }
+
+        ::selection {
+            background: rgba(192, 57, 43, 0.35);
+            color: #fff;
+        }
+        *:focus-visible {
+            outline: 1px solid rgba(232, 160, 32, 0.65);
+            outline-offset: 3px;
+        }
+        html {
+            scrollbar-color: rgba(192, 57, 43, 0.45) #0d0b08;
+            scrollbar-width: thin;
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #0d0b08; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(192, 57, 43, 0.55), rgba(232, 160, 32, 0.35));
+            border-radius: 999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #c0392b, rgba(232, 160, 32, 0.5));
+        }
 
         body {
             font-family: 'Syne', sans-serif;
@@ -103,15 +126,35 @@
             color: var(--crimson);
             text-transform: uppercase;
         }
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+        }
         .nav-link {
             font-size: 9px;
             letter-spacing: 0.4em;
             text-transform: uppercase;
             color: rgba(212,197,169,0.3);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: color 0.35s, letter-spacing 0.35s ease;
+            position: relative;
+            padding-bottom: 4px;
         }
-        .nav-link:hover { color: var(--bone); }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0; bottom: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--crimson), var(--amber));
+            transition: width 0.35s ease;
+        }
+        .nav-link:hover {
+            color: var(--bone);
+            letter-spacing: 0.45em;
+        }
+        .nav-link:hover::after { width: 100%; }
 
         /* ── HERO ── */
         .hero {
@@ -124,6 +167,26 @@
             padding: 120px 24px 80px;
             text-align: center;
             z-index: 1;
+        }
+        .hero-corner {
+            position: absolute;
+            width: min(100px, 18vw);
+            height: min(100px, 18vw);
+            pointer-events: none;
+            opacity: 0.4;
+            z-index: 0;
+        }
+        .hero-corner--tl {
+            top: 88px;
+            left: clamp(12px, 4vw, 48px);
+            border-top: 1px solid rgba(232, 160, 32, 0.55);
+            border-left: 1px solid rgba(192, 57, 43, 0.4);
+        }
+        .hero-corner--br {
+            bottom: 48px;
+            right: clamp(12px, 4vw, 48px);
+            border-bottom: 1px solid rgba(192, 57, 43, 0.5);
+            border-right: 1px solid rgba(232, 160, 32, 0.35);
         }
 
         .hero-eyebrow {
@@ -230,9 +293,28 @@
         /* ── DIVIDER ── */
         .divider {
             width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(212,197,169,0.1), transparent);
+            max-width: min(920px, 92%);
             margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 0 24px;
+        }
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(212,197,169,0.14), transparent);
+        }
+        .divider-ornament {
+            flex-shrink: 0;
+            width: 10px;
+            height: 10px;
+            border: 1px solid rgba(232, 160, 32, 0.45);
+            transform: rotate(45deg);
+            box-shadow: 0 0 20px rgba(192, 57, 43, 0.15);
+            background: radial-gradient(circle at 30% 30%, rgba(232, 160, 32, 0.2), transparent 70%);
         }
 
         /* ── FORM SECTION ── */
@@ -250,7 +332,15 @@
             text-transform: uppercase;
             color: var(--amber);
             margin-bottom: 16px;
-            display: block;
+            display: inline-flex;
+            align-items: center;
+            gap: 14px;
+        }
+        .section-label::before {
+            content: '';
+            width: 28px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--crimson));
         }
         .section-title {
             font-family: 'Playfair Display', serif;
@@ -646,6 +736,19 @@
             text-transform: uppercase;
             color: rgba(212,197,169,0.15);
         }
+        .footer-ornament {
+            width: 6px;
+            height: 6px;
+            background: var(--crimson);
+            opacity: 0.35;
+            transform: rotate(45deg);
+            flex-shrink: 0;
+        }
+        @media (max-width: 560px) {
+            .nav-links { gap: 16px; }
+            .nav-link { letter-spacing: 0.25em; }
+            .nav-link:hover { letter-spacing: 0.3em; }
+        }
     </style>
 </head>
 <body>
@@ -661,11 +764,16 @@
     <!-- NAV -->
     <nav>
         <span class="nav-logo">El Precio del Placer</span>
-        <a href="#voces" class="nav-link">Voces ↓</a>
+        <div class="nav-links">
+            <a href="#reflexion" class="nav-link">Reflexión</a>
+            <a href="#voces" class="nav-link">Voces</a>
+        </div>
     </nav>
 
     <!-- HERO -->
     <section class="hero">
+        <span class="hero-corner hero-corner--tl" aria-hidden="true"></span>
+        <span class="hero-corner hero-corner--br" aria-hidden="true"></span>
         <div class="hero-eyebrow" data-aos="fade-down" data-aos-duration="800">
             Proyecto de Concientización
         </div>
@@ -688,7 +796,7 @@
         <a href="#reflexion" class="hero-cta" data-aos="fade-up" data-aos-delay="500">Contesta un formulario</a>
     </section>
 
-    <div class="divider"></div>
+    <div class="divider" aria-hidden="true"><span class="divider-ornament"></span></div>
 
     <!-- STATS STRIP -->
     <div class="stats-strip">
@@ -705,6 +813,8 @@
             <span class="stat-label">Familias impactadas</span>
         </div>
     </div>
+
+    <div class="divider" aria-hidden="true"><span class="divider-ornament"></span></div>
 
     <!-- FORM -->
     <section class="form-section" id="reflexion">
@@ -739,7 +849,7 @@
         </form>
     </section>
 
-    <div class="divider"></div>
+    <div class="divider" aria-hidden="true"><span class="divider-ornament"></span></div>
 
     <!-- IMPACT -->
     <section class="impact-section">
@@ -791,7 +901,7 @@
         </div>
     </section>
 
-    <div class="divider"></div>
+    <div class="divider" aria-hidden="true"><span class="divider-ornament"></span></div>
 
     <!-- TESTIMONIALS -->
     <section class="testimonials-section" id="voces">
@@ -827,6 +937,7 @@
     <!-- FOOTER -->
     <footer>
         <span class="footer-logo">El Precio del Placer</span>
+        <span class="footer-ornament" aria-hidden="true"></span>
         <span class="footer-copy">© 2026 Proyecto Académico de Concientización</span>
     </footer>
 
