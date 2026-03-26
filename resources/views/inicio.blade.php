@@ -648,6 +648,53 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
         }
+        .pagination-wrap {
+            margin-top: 28px;
+            display: flex;
+            justify-content: center;
+        }
+        .pagination {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 14px 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(212, 197, 169, 0.07);
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .pagination a,
+        .pagination span {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 36px;
+            height: 34px;
+            padding: 0 10px;
+            border-radius: 10px;
+            font-size: 10px;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: 1px solid rgba(212, 197, 169, 0.08);
+            color: rgba(212, 197, 169, 0.55);
+            transition: border-color 0.25s, background 0.25s, color 0.25s, transform 0.2s;
+        }
+        .pagination a:hover {
+            color: var(--bone);
+            border-color: rgba(232, 160, 32, 0.35);
+            background: rgba(232, 160, 32, 0.08);
+            transform: translateY(-1px);
+        }
+        .pagination .active {
+            color: #fff;
+            border-color: rgba(192, 57, 43, 0.5);
+            background: rgba(192, 57, 43, 0.12);
+        }
+        .pagination .disabled {
+            opacity: 0.35;
+            pointer-events: none;
+        }
         .testimonial-card {
             background: rgba(255,255,255,0.02);
             border: 1px solid rgba(212,197,169,0.07);
@@ -932,6 +979,29 @@
             </div>
             @endforelse
         </div>
+
+        @if (method_exists($comentarios, 'links'))
+        <div class="pagination-wrap" data-aos="fade-up">
+            <nav class="pagination" aria-label="Paginación de comentarios">
+                @php
+                    $prevUrl = $comentarios->previousPageUrl();
+                    $nextUrl = $comentarios->nextPageUrl();
+                @endphp
+
+                <a class="{{ $prevUrl ? '' : 'disabled' }}" href="{{ $prevUrl ?? '#' }}">Anterior</a>
+
+                @for ($i = 1; $i <= $comentarios->lastPage(); $i++)
+                    @if ($i === $comentarios->currentPage())
+                        <span class="active" aria-current="page">{{ $i }}</span>
+                    @else
+                        <a href="{{ $comentarios->url($i) }}">{{ $i }}</a>
+                    @endif
+                @endfor
+
+                <a class="{{ $nextUrl ? '' : 'disabled' }}" href="{{ $nextUrl ?? '#' }}">Siguiente</a>
+            </nav>
+        </div>
+        @endif
     </section>
 
     <!-- FOOTER -->
