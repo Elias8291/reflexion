@@ -986,19 +986,20 @@
                 @php
                     $prevUrl = $comentarios->previousPageUrl();
                     $nextUrl = $comentarios->nextPageUrl();
+                    $fragment = '#voces';
                 @endphp
 
-                <a class="{{ $prevUrl ? '' : 'disabled' }}" href="{{ $prevUrl ?? '#' }}">Anterior</a>
+                <a class="{{ $prevUrl ? '' : 'disabled' }}" href="{{ $prevUrl ? ($prevUrl . $fragment) : '#' }}">Anterior</a>
 
                 @for ($i = 1; $i <= $comentarios->lastPage(); $i++)
                     @if ($i === $comentarios->currentPage())
                         <span class="active" aria-current="page">{{ $i }}</span>
                     @else
-                        <a href="{{ $comentarios->url($i) }}">{{ $i }}</a>
+                        <a href="{{ $comentarios->url($i) . $fragment }}">{{ $i }}</a>
                     @endif
                 @endfor
 
-                <a class="{{ $nextUrl ? '' : 'disabled' }}" href="{{ $nextUrl ?? '#' }}">Siguiente</a>
+                <a class="{{ $nextUrl ? '' : 'disabled' }}" href="{{ $nextUrl ? ($nextUrl . $fragment) : '#' }}">Siguiente</a>
             </nav>
         </div>
         @endif
