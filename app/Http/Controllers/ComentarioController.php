@@ -11,7 +11,6 @@ class ComentarioController extends Controller
     {
         $comentarios = Comentario::query()
             ->latest()
-            ->take(8)
             ->get();
 
         return view('inicio', compact('comentarios'));
